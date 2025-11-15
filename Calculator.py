@@ -1,5 +1,3 @@
-from os.path import split
-
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
@@ -22,9 +20,9 @@ font_size = 25
 class MyApp(App):
     def build(self):
         self.title = "CalculatorInKivy"
-        layout = BoxLayout(orientation='vertical')
-        LayoutGrid = MyGridLayout(cols=4)
-        self.label = Label(text="",size_hint=(1, 0.25), font_size=font_size)
+        layout = BoxLayout(orientation='vertical', padding=5)
+        LayoutGrid = MyGridLayout(cols=4, size_hint=(1, .75))
+        self.label = Label(text="",size_hint=(1, 0.25), font_size=40,valign="center", halign="right", text_size=(.40,.50))
         LayoutGrid.add_widgets(Button(text=str(buttons[0]),font_size=font_size,size_hint=(1/4, 1/5),on_press=self.cleaning),
                                Button(text=str(buttons[1]),font_size=font_size,size_hint=(1/4, 1/5),on_press=self.cleaning_element),
                                Button(text=str(buttons[2]),font_size=font_size,size_hint=(1/4, 1/5),on_press=self.delete_number_or_operant),
@@ -46,6 +44,7 @@ class MyApp(App):
                                Button(text=str(buttons[18]),font_size=font_size,size_hint=(1/4, 1/5),on_press=self.write_number_or_operant),
                                Button(text=str(buttons[19]),font_size=font_size,size_hint=(1/4, 1/5),on_press=self.equal))
 
+        self.label.bind(size=lambda inst, val: setattr(inst, "text_size", inst.size))
         layout.add_widget(self.label)
         layout.add_widget(LayoutGrid)
 
